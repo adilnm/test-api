@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  componentDidMount() {
+    fetch("https://api.football-data.org/v2/competitions/2014/standings", {
+      method: "GET",
+      headers: {
+        "X-Auth-Token": process.env.REACT_APP_API_KEY
+      }
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(error => console.log("Error: ", error));
+  }
+  render() {
+    return <div className="App">App</div>;
+  }
 }
 
 export default App;
